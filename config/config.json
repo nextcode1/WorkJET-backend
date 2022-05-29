@@ -1,0 +1,19 @@
+{
+  "development": {
+    "url": "postgres://msbgokiu:Nzilb1_AS5A3oMa27y6imqwlN-2ta33F@abul.db.elephantsql.com/msbgokiu"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
