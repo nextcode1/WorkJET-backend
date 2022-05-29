@@ -2,6 +2,12 @@ const express = require("express");
 const corsMiddleWare = require("cors");
 // Auth middleware: our own code. Checks for the existence of a token in a header called `authentication`.
 const authMiddleWare = require("./auth/middleware");
+const authRouter = require("./routers/auth");
+const skillsRouter = require("./routers/skills");
+const projectsRouter = require("./routers/projects");
+const recrutersRouter = require("./routers/recruters");
+const certificationsRouter = require("./routers/certifications");
+const newsRouter = require("./routers/news");
 
 const { PORT } = require("./config/constants");
 
@@ -15,7 +21,12 @@ const app = express();
  * If you configure routes before the middleware, these routes will not use them
  *
  */
-
+app.use("/auth", authRouter);
+app.use("/news", newsRouter);
+app.use("/skills", skillsRouter);
+app.use("/projects", projectsRouter);
+app.use("/recruters", recrutersRouter);
+app.use("/certifications", certificationsRouter);
 // CORS middleware:  * Since our api is hosted on a different domain than our client
 // we are are doing "Cross Origin Resource Sharing" (cors)
 // Cross origin resource sharing is disabled by express by default

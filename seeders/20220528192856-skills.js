@@ -220,7 +220,7 @@ module.exports = {
       { name: "Redux", createdAt: new Date(), updatedAt: new Date() },
       { name: "React Native", createdAt: new Date(), updatedAt: new Date() },
     ]),
-      [];
+      {};
   },
 
   async down(queryInterface, Sequelize) {
