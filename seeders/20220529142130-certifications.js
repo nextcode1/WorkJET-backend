@@ -8,12 +8,15 @@ module.exports = {
         {
           title: "FullStack Developer",
           date: "17-06-2022",
+          userId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           title: "Network Administrator",
           date: "09-01-2022",
+          userId: 1,
+
           createdAt: new Date(),
           updatedAt: new Date(),
         },
