@@ -14,7 +14,7 @@ module.exports = {
           imageUrl:
             "https://www.pavilionweb.com/wp-content/uploads/2017/03/man.png",
           isAvailable: true,
-          description: "aibusvaushajsvbkaj",
+          description: "Hi I'm Vali",
           password: bcrypt.hashSync("a", SALT_ROUNDS),
           createdAt: new Date(),
           updatedAt: new Date(),
