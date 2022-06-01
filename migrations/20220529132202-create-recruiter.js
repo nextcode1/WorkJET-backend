@@ -26,6 +26,13 @@ module.exports = {
       isRecruting: {
         type: Sequelize.BOOLEAN,
       },
+      jobDescription: {
+        type: Sequelize.STRING,
+      },
+
+      jobTitle: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

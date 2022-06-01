@@ -19,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       imageUrl: DataTypes.STRING,
       location: DataTypes.STRING,
       isRecruting: DataTypes.BOOLEAN,
+      jobDescription: DataTypes.STRING,
+      jobTitle: DataTypes.STRING,
     },
     {
       sequelize,

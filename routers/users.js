@@ -56,12 +56,12 @@ router.post("/signup", async (req, res) => {
 
   try {
     const newUser = await User.create({
+      name,
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
-      name,
     });
 
-    delete newUser.dataValues["password"]; // don't send back the password hash
+    delete newUser.dataValues["password"];
 
     const token = toJWT({ userId: newUser.id });
 
@@ -98,14 +98,8 @@ router.post("/login", async (req, res, next) => {
         message: "User with that email not found or password incorrect",
       });
     }
-    // if (user.accountBlocked === true) {
-    //   return res.status(401).send({
-    //     message:
-    //       "This account has been blocked! For more details please contact the Admin!",
-    //   });
-    // }
 
-    delete user.dataValues["password"]; // don't send back the password hash
+    delete user.dataValues["password"];
     const token = toJWT({ userId: user.id });
     return res.status(200).send({ token, user: user.dataValues });
   } catch (error) {

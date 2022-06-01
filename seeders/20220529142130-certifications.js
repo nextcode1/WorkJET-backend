@@ -15,8 +15,29 @@ module.exports = {
         {
           title: "Network Administrator",
           date: "09-01-2022",
-          userId: 1,
+          userId: 2,
 
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          title: "Compria A+",
+          date: "10-09-2021",
+          userId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          title: "software developer",
+          date: "10-02-2021",
+          userId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          title: "software engineer",
+          date: "10-12-2021",
+          userId: 4,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

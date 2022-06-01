@@ -22,17 +22,30 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          name: "redux-counter",
+          description: "increse counter ",
+          linkUrl:
+            "https://github.com/reduxjs/redux-essentials-counter-example",
+          userId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "facebook-redux",
+          description:
+            "The main purpose of this repository is to continue evolving React core, making it faster and easier to use. Development of React happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving React. ",
+          linkUrl: "https://github.com/facebook/react",
+          userId: 4,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    await queryInterface.bulkDelete("projects", null, {});
   },
 };
