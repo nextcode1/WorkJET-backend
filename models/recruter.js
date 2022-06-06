@@ -13,9 +13,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   recruter.init(
     {
-      name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       imageUrl: DataTypes.STRING,
       location: DataTypes.STRING,
       isRecruting: DataTypes.BOOLEAN,

@@ -10,43 +10,36 @@ const Certification = require("../models").certification;
 
 const router = new Router();
 
-// The /me endpoint can be used to:
-// - get the users email & name using only their token
-// - checking if a token is (still) valid
-// router.get("/me", auth, async (req, res) => {
-//   // const user = req.user;
-//   try {
-//     const user = await User.findByPk(req.user.id, {
-//       // include: [{ model: Reservation, include: [Table] }],
-//     });
-//     // don't send back the password hash
-//     delete user.dataValues["password"];
-//     res.status(200).send({
-//       user,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send("Something went wrong");
-//   }
-// });
+router.get("/me", auth, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id, {
+      include: [{ model: Project }, { model: Skill }, { model: Certification }],
+    });
+    delete user.dataValues["password"];
+    res.status(200).send({
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Something went wrong");
+  }
+});
 
+// Get all users
 router.get("/", async (req, res) => {
   try {
     const getUsers = await User.findAll({
       include: [{ model: Project }, { model: Skill }, { model: Certification }],
     });
-    console.log("here");
 
     res.send(getUsers);
-
-    // res.send("hello there");
   } catch (error) {
     console.log(error);
     return res.status(400).send("Something went wrong");
   }
 });
 
-// CREATE A USER
+// Signup END-POINT
 
 router.post("/signup", async (req, res) => {
   const { email, password, name } = req.body;

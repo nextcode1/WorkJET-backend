@@ -8,7 +8,7 @@ module.exports = {
         {
           name: "score-board",
           description: "increse score for players",
-          linkUrl: "http://nothingfor-now",
+          linkUrl: "https://github.com/nextcode1/scoreboard",
           userId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
