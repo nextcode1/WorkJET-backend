@@ -13,4 +13,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// update skills
+router.patch("/:id", async (req, res) => {
+  try {
+    const newSkills = await Skill.findByPk(req.params.id);
+    const { name } = req.body;
+    const updated = await newSkills.update({
+      name,
+    });
+    return res.status(200).send(updated);
+  } catch (e) {
+    console.log(e.message);
+    next(e);
+  }
+});
+
 module.exports = router;
