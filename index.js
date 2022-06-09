@@ -11,6 +11,8 @@ const certificationsRouter = require("./routers/certifications");
 const newsRouter = require("./routers/news");
 const mailRouter = require("./routers/mail");
 
+require("dotenv").config();
+
 const { PORT } = require("./config/constants");
 
 const app = express();
@@ -33,7 +35,7 @@ const contactEmail = nodemailer.createTransport({
   service: "outlook",
   auth: {
     user: "marian_project@outlook.com",
-    pass: "evolution77J",
+    pass: process.env.MAIL_PASS,
   },
 });
 
