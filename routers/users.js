@@ -7,6 +7,8 @@ const User = require("../models").user;
 const Skill = require("../models").skill;
 const Project = require("../models").project;
 const Certification = require("../models").certification;
+const Recruter = require("../models").recruter;
+const UserSkill = require("../models").userSkill;
 
 const router = new Router();
 
@@ -42,23 +44,42 @@ router.get("/", async (req, res) => {
 // Signup END-POINT
 
 router.post("/signup", async (req, res) => {
-  const { email, password, name } = req.body;
+  const { email, password, name, isRecruiter } = req.body;
   if (!email || !password || !name) {
     return res.status(400).send("Please provide an email, password and a name");
   }
 
   try {
-    const newUser = await User.create({
-      name,
-      email,
-      password: bcrypt.hashSync(password, SALT_ROUNDS),
-    });
+    if (isRecruiter) {
+      const newRecruiter = await Recruter.create({
+        name,
+        email,
+        password: bcrypt.hashSync(password, SALT_ROUNDS),
+      });
+      delete newRecruiter.dataValues["password"];
+      const token = toJWT({
+        recruiterId: newRecruiter.id,
+      });
+      res.status(201).json({
+        token,
+        recruiter: newRecruiter.dataValues,
+      });
+    } else {
+      const newUser = await User.create({
+        name,
+        email,
+        password: bcrypt.hashSync(password, SALT_ROUNDS),
+      });
 
-    delete newUser.dataValues["password"];
+      delete newUser.dataValues["password"];
 
-    const token = toJWT({ userId: newUser.id });
+      const token = toJWT({ userId: newUser.id });
 
-    res.status(201).json({ token, user: newUser.dataValues });
+      res.status(201).json({
+        token,
+        user: newUser.dataValues,
+      });
+    }
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return res
@@ -100,4 +121,81 @@ router.post("/login", async (req, res, next) => {
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
 });
+
+// Post a new skill
+
+router.post("/:id/skill", async (req, res) => {
+  // const skillId = req.body;
+
+  const { id } = req.params;
+  const { skills, extraSkill } = req.body;
+  // const arrayOfSkills = [1, 2, 3, 4];
+  const newskills = skills;
+
+  // ----------------------------------------
+  // is there an extra skill?
+  // add to database if it exists
+  // get id back
+  // add to join table with user.
+  // ----------------------------------------
+  let newSkill;
+  if (extraSkill) {
+    newSkill = await Skill.create({ name: extraSkill }); // Make the actual skill
+    const newSkills = await UserSkill.create({
+      userId: id,
+      skillId: newSkill.id,
+    });
+    // For every newExtraSkills make a UserSkill object
+    // const singleSkills = await UserSkill.create({ userId: id, skillId: id });
+    // return singleSkills;
+  }
+  //this allows us to create one skill at a time
+  // const addSkill = await UserSkill.create({ userId, skillId })
+
+  //add multiple skills
+  const addSkills = newskills.map(async (item) => {
+    const newSkills = await UserSkill.create({ userId: id, skillId: item });
+    return newSkills;
+  });
+
+  await Promise.all(addSkills);
+
+  const updatedSkills = extraSkill ? [...newskills, newSkill.id] : newskills;
+
+  return res
+    .status(201)
+    .send({ message: "Skill created", newskills: updatedSkills });
+});
+
+// Update user profile
+router.put("/:id/user", async (req, res) => {
+  const user = await User.findByPk(req.params.id);
+  const {
+    name,
+    email,
+    password,
+    location,
+    description,
+    imageUrl,
+    isAvailable,
+  } = req.body;
+
+  if (!name) {
+    return res.status(400).send({ message: "User must have a name" });
+  }
+
+  const updated = await user.update({
+    name,
+    email,
+    password,
+    location,
+    description,
+    imageUrl,
+    isAvailable,
+    userId: user.id,
+  });
+
+  return res.status(201).send({ message: "User updated", updated });
+});
+
 module.exports = router;

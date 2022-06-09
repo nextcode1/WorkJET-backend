@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = new Router();
 const Project = require("../models").project;
+const User = require("../models").user;
 
 //  GET all projects
 router.get("/", async (req, res, next) => {
@@ -11,6 +12,26 @@ router.get("/", async (req, res, next) => {
     console.log(error);
     next(error);
   }
+});
+
+// Add a project
+
+router.post("/:id/project", async (req, res) => {
+  const user = await User.findByPk(req.params.id);
+  const { name, description, linkUrl } = req.body;
+
+  if (!name) {
+    return res.status(400).send({ message: "the project must have a name" });
+  }
+
+  const project = await Project.create({
+    name,
+    description,
+    linkUrl,
+    userId: user.id,
+  });
+
+  return res.status(201).send({ message: "Project created", project });
 });
 
 module.exports = router;

@@ -20,7 +20,7 @@ app.use(corsMiddleWare());
 
 app.use("/users", usersRouter);
 app.use("/news", newsRouter);
-app.use("/mail", mailRouter);
+app.use("/mails", mailRouter);
 app.use("/skills", skillsRouter);
 app.use("/projects", projectsRouter);
 app.use("/recruiters", recrutersRouter);
@@ -30,9 +30,9 @@ const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
 
 const contactEmail = nodemailer.createTransport({
-  service: "gmail",
+  service: "outlook",
   auth: {
-    user: "stargateblk@gmail.com",
+    user: "marian_project@outlook.com",
     pass: "evolution77J",
   },
 });
@@ -43,6 +43,32 @@ contactEmail.verify((error) => {
   } else {
     console.log("Ready to Send");
   }
+});
+
+app.post("/contact", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const subject = req.body.subject;
+  const message = req.body.message;
+  // if (!name || !email || !subject || !message) {
+  //   return res.status(400).send({ message: "Please fill all the fields" });
+  // }
+  const mail = {
+    from: name,
+    to: "marian_project@outlook.com",
+    subject: "Contact Form Submission",
+    html: `<p>Name: ${name}</p>
+           <p>Email: ${email}</p>
+           <p>Message: ${message}</p>
+           <p>Subject:${subject}</p>`,
+  };
+  contactEmail.sendMail(mail, (error) => {
+    if (error) {
+      res.json({ status: "ERROR" });
+    } else {
+      res.json({ status: "Message Sent" });
+    }
+  });
 });
 
 app.post("/authorized_post_request", authMiddleWare, (req, res) => {

@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = new Router();
 
+// Send Email
 router.post("/contact", (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
@@ -8,7 +9,7 @@ router.post("/contact", (req, res) => {
   const message = req.body.message;
   const mail = {
     from: name,
-    to: "stargateblk@gmail.com",
+    to: "marian_project@outlook.com",
     subject: "Contact Form Submission",
     html: `<p>Name: ${name}</p>
            <p>Email: ${email}</p>
@@ -23,4 +24,5 @@ router.post("/contact", (req, res) => {
     }
   });
 });
+
 module.exports = router;
