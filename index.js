@@ -9,7 +9,6 @@ const projectsRouter = require("./routers/projects");
 const recrutersRouter = require("./routers/recruters");
 const certificationsRouter = require("./routers/certifications");
 const newsRouter = require("./routers/news");
-const mailRouter = require("./routers/mail");
 
 require("dotenv").config();
 
@@ -22,7 +21,6 @@ app.use(corsMiddleWare());
 
 app.use("/users", usersRouter);
 app.use("/news", newsRouter);
-app.use("/mails", mailRouter);
 app.use("/skills", skillsRouter);
 app.use("/projects", projectsRouter);
 app.use("/recruiters", recrutersRouter);

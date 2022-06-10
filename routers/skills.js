@@ -5,7 +5,7 @@ const User = require("../models").user;
 
 //  GET all skills
 router.get("/", async (req, res, next) => {
-  const limit = req.query.limit || 20;
+  const limit = req.query.limit || 10;
   const offset = req.query.offset || 0;
   try {
     const skills = await Skill.findAndCountAll({
