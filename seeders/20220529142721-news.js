@@ -88,6 +88,29 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          title: "How to Upgrade to React 18",
+          imageUrl:
+            "https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/content/cover_image_file/cover_image/687822/retina_800x320_cover-react-context-api-4929b3703a1a7082d99b53eb1bbfc31f.png",
+          description:
+            "As we shared in the release post, React 18 introduces features powered by our new concurrent renderer, with a gradual adoption strategy for existing applications.",
+          linkUrl:
+            "https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html",
+          date: "10 min",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          title: "Blockchain News",
+          imageUrl:
+            "https://s3.cointelegraph.com/storage/uploads/view/7c827de187651b6bb3cd23a4a48a9615.jpg",
+          description:
+            "Blockchains are the critical infrastructure underlying cryptocurrencies. The common feature of these distributed ledgers is the sequential updating of a cryptographically secure, verifiable transaction record among a network .",
+          linkUrl: "https://cointelegraph.com/tags/blockchain",
+          date: "1 day",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );

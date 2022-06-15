@@ -34,4 +34,19 @@ router.post("/:id/project", async (req, res) => {
   return res.status(201).send({ message: "Project created", project });
 });
 
+// delete one project
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const oneProject = await Project.findByPk(req.params.id);
+    if (!oneProject) {
+      res.status(400).send(`Project ID ${oneProject} not found!`);
+    } else {
+      await oneProject.destroy();
+      res.send({ message: "Project has been deleted", oneProject });
+    }
+  } catch (error) {
+    res.send("Something went wrong");
+  }
+});
+
 module.exports = router;

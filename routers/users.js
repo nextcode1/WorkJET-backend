@@ -184,4 +184,18 @@ router.put("/:id/user", async (req, res) => {
   return res.status(201).send({ message: "User updated", updated });
 });
 
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const oneUser = await User.findByPk(req.params.id);
+    if (!oneUser) {
+      res.status(400).send(`User ID ${oneCert} not found!`);
+    } else {
+      await oneUser.destroy();
+      res.send({ message: "User has been deleted", oneUser });
+    }
+  } catch (error) {
+    res.send("Something went wrong");
+  }
+});
+
 module.exports = router;

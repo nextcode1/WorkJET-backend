@@ -37,4 +37,19 @@ router.post("/:id/certification", async (req, res) => {
     .send({ message: "Certification created", certification });
 });
 
+// delete a certif
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const oneCert = await Certification.findByPk(req.params.id);
+    if (!oneCert) {
+      res.status(400).send(`Certification ID ${oneCert} not found!`);
+    } else {
+      await oneCert.destroy();
+      res.send({ message: "Certification has been deleted", oneCert });
+    }
+  } catch (error) {
+    res.send("Something went wrong");
+  }
+});
+
 module.exports = router;

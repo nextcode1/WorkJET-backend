@@ -18,5 +18,19 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
+// delete a skill
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const talent = await Skill.findByPk(req.params.id);
+    if (!talent) {
+      res.status(400).send(`Skill ID ${talent} not found!`);
+    } else {
+      await talent.destroy();
+      res.send({ message: "Skill has been deleted", talent });
+    }
+  } catch (error) {
+    res.send("Something went wrong");
+  }
+});
 
 module.exports = router;
