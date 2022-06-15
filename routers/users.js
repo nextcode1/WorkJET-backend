@@ -125,34 +125,20 @@ router.post("/login", async (req, res, next) => {
 // Post a new skill
 
 router.post("/:id/skill", async (req, res) => {
-  // const skillId = req.body;
-
   const { id } = req.params;
   const { skills, extraSkill } = req.body;
-  // const arrayOfSkills = [1, 2, 3, 4];
+
   const newskills = skills;
 
-  // ----------------------------------------
-  // is there an extra skill?
-  // add to database if it exists
-  // get id back
-  // add to join table with user.
-  // ----------------------------------------
   let newSkill;
   if (extraSkill) {
-    newSkill = await Skill.create({ name: extraSkill }); // Make the actual skill
+    newSkill = await Skill.create({ name: extraSkill });
     const newSkills = await UserSkill.create({
       userId: id,
       skillId: newSkill.id,
     });
-    // For every newExtraSkills make a UserSkill object
-    // const singleSkills = await UserSkill.create({ userId: id, skillId: id });
-    // return singleSkills;
   }
-  //this allows us to create one skill at a time
-  // const addSkill = await UserSkill.create({ userId, skillId })
 
-  //add multiple skills
   const addSkills = newskills.map(async (item) => {
     const newSkills = await UserSkill.create({ userId: id, skillId: item });
     return newSkills;

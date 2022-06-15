@@ -19,32 +19,4 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// update skills
-// router.post("/new", async (req, res) => {
-//   try {
-//     const newSkills = await Skill.findByPk(req.params.id);
-//     const { name } = req.body;
-//     const updated = await newSkills.crate({
-//       name,
-//     });
-//     return res.status(200).send(updated);
-//   } catch (e) {
-//     console.log(e.message);
-//     next(e);
-//   }
-// });
-
-router.post("/skill", async (req, res) => {
-  const { name } = req.body;
-
-  if (!name) {
-    return res.status(400).send({ message: "the skill must have a name" });
-  }
-
-  const skill = await Skill.create({
-    name,
-  });
-
-  return res.status(201).send({ message: "Skill created", skill });
-});
 module.exports = router;
