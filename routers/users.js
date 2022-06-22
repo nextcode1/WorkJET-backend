@@ -188,7 +188,7 @@ router.delete("/delete/:id", async (req, res) => {
   try {
     const oneUser = await User.findByPk(req.params.id);
     if (!oneUser) {
-      res.status(400).send(`User ID ${oneCert} not found!`);
+      res.status(400).send(`User ID ${oneUser} not found!`);
     } else {
       await oneUser.destroy();
       res.send({ message: "User has been deleted", oneUser });
